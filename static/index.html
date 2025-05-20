@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>AI Code Companion</title>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            primary: {
+              DEFAULT: '#f8f5ff', // 
+              hover: '#2563eb',
+              focus: '#1d4ed8',
+            },
+            dark: {
+              DEFAULT: 'f8f5ff', // Slate 800
+              lighter: 'f8f5ff', // Slate 700
+              darker: '#0f172a',  // Slate 900
+            },
+            light: {
+              DEFAULT: '#f8fafc', // Slate 50
+              darker: '#e2e8f0',  // Slate 200
+            }
+          },
+          boxShadow: {
+            glow: '0 0 10px rgba(236, 72, 153, 0.5), 0 0 20px rgba(236, 72, 153, 0.3)'
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    :root {
+      --bg-gradient: linear-gradient(to right, #fce7f3, #f8f5ff, #e9f6f3);
+      --header-bg: rgba(255, 255, 255, 0.7);
+      --header-border: #fbcfe8;
+      --input-bg: white;
+      --input-text: #1f2937;
+      --input-border: #fbcfe8;
+      --button-bg: #ec4899;
+      --button-hover: #db2777;
+      --button-text: white;
+      --user-bubble-bg: #ec4899;
+      --user-bubble-text: white;
+      --ai-bubble-bg: rgba(255, 255, 255, 0.8);
+      --ai-bubble-border: #fbcfe8;
+      --ai-bubble-text: #1f2937;
+      --code-bg: #1f2937;
+      --code-text: white;
+      --icon-color: #1f2937;
+      --spinner-border: rgba(236, 72, 153, 0.3);
+      --spinner-border-top: #ec4899;
+    }
+
+    .dark-mode {
+      --bg-gradient: linear-gradient(to right, #0f172a, #1e293b, #0f172a);
+      --header-bg: rgba(15, 23, 42, 0.7);
+      --header-border: #334155;
+      --input-bg: #1e293b;
+      --input-text: #f1f5f9;
+      --input-border: #334155;
+      --button-bg: #8b5cf6;
+      --button-hover: #7c3aed;
+      --button-text: white;
+      --user-bubble-bg: #8b5cf6;
+      --user-bubble-text: white;
+      --ai-bubble-bg: rgba(30, 41, 59, 0.8);
+      --ai-bubble-border: #334155;
+      --ai-bubble-text: #f1f5f9;
+      --code-bg: #0f172a;
+      --code-text: #f1f5f9;
+      --icon-color: #f1f5f9;
+      --spinner-border: rgba(139, 92, 246, 0.3);
+      --spinner-border-top: #8b5cf6;
+    }
+
+    body {
+      background: var(--bg-gradient);
+      transition: background 0.3s ease;
+    }
+
+    /* Custom scrollbar for code blocks */
+    pre::-webkit-scrollbar {
+      width: 8px;
+      height: 8px;
+    }
+    pre::-webkit-scrollbar-track {
+      background: var(--code-bg);
+    }
+    pre::-webkit-scrollbar-thumb {
+      background: #475569;
+      border-radius: 4px;
+    }
+    pre::-webkit-scrollbar-thumb:hover {
+      background: #64748b;
+    }
+    
+    /* Ensure the chat container takes up available space */
+    .chat-container {
+      height: calc(100vh - 140px);
+    }
+    
+    /* Loading spinner */
+    .spinner {
+      width: 24px;
+      height: 24px;
+      border: 3px solid var(--spinner-border);
+      border-radius: 50%;
+      border-top-color: var(--spinner-border-top);
+      animation: spin 1s ease-in-out infinite;
+    }
+    
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+    
+    @keyframes heartbeat {
+      0% { transform: scale(1); }
+      25% { transform: scale(1.1); }
+      50% { transform: scale(1); }
+      75% { transform: scale(1.1); }
+      100% { transform: scale(1); }
+    }
+    
+    .heart-beat {
+      display: inline-block;
+      animation: heartbeat 1.5s infinite;
+      transform-origin: center;
+    }
+
+    /* Dark mode transition */
+    .theme-transition {
+      transition: background-color 0.3s ease, 
+                  color 0.3s ease, 
+                  border-color 0.3s ease, 
+                  background 0.3s ease;
+    }
+  </style>
+</head>
+<body class="theme-transition min-h-screen flex flex-col">
+  <!-- Header with branding -->
+  <header class="theme-transition py-4 px-6 border-b shadow-md" style="background: var(--header-bg); border-color: var(--header-border);">
+    <div class="flex items-center justify-between">
+      <div class="flex items-center space-x-2">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 theme-transition" fill="none" viewBox="0 0 24 24" stroke="currentColor" style="color: var(--button-bg);">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
+        </svg>
+        <h1 class="text-xl font-bold theme-transition" style="color: var(--ai-bubble-text);"> AI Code Companion</h1>
+      </div>
+      <div class="flex items-center space-x-4">
+        <select id="mode" class="theme-transition px-3 py-2 rounded-md border focus:outline-none focus:ring-2 focus:border-transparent" style="background: var(--input-bg); color: var(--input-text); border-color: var(--input-border); --tw-ring-color: var(--button-bg);">
+          <option value="generate">Generate Code</option>
+          <option value="debug">Debug Code</option>
+          <option value="explain">Explain Code</option>
+        </select>
+        <select id="prompt-template" class="theme-transition px-3 py-2 rounded-md border focus:outline-none focus:ring-2 focus:border-transparent" style="background: var(--input-bg); color: var(--input-text); border-color: var(--input-border); --tw-ring-color: var(--button-bg);">
+          <option value="">No Prompt Template</option>
+          <!-- Prompt templates will be loaded here -->
+        </select>
+        <button id="theme-toggle" class="theme-transition p-2 rounded-md border focus:outline-none focus:ring-2" style="background: var(--input-bg); color: var(--icon-color); border-color: var(--input-border); --tw-ring-color: var(--button-bg);">
+          <svg id="dark-icon" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 hidden" viewBox="0 0 20 20" fill="currentColor">
+            <path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z" />
+          </svg>
+          <svg id="light-icon" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+            <path fill-rule="evenodd" d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" clip-rule="evenodd" />
+          </svg>
+        </button>
+        <button id="view-prompt" class="theme-transition px-3 py-2 rounded-md border focus:outline-none focus:ring-2" style="background: var(--button-bg); color: var(--button-text); border-color: var(--input-border); --tw-ring-color: var(--button-hover);">
+          View Prompt
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Chat container -->
+  <main class="flex-1 overflow-hidden flex flex-col">
+    <div id="chat-container" class="chat-container flex-1 overflow-y-auto p-4 space-y-4">
+      <!-- Welcome message -->
+      <div class="flex flex-col max-w-3xl mx-auto w-full">
+        <div class="theme-transition p-4 rounded-2xl rounded-tl-sm mb-4 shadow-md border" style="background: var(--ai-bubble-bg); color: var(--ai-bubble-text); border-color: var(--ai-bubble-border);">
+          <p class="mb-2">👋 Welcome to AI Code Companion!</p>
+          <p>I can help you generate code, debug existing code, or explain code snippets. Select a mode and type your request below.</p>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Fixed input bar at the bottom -->
+    <div class="theme-transition border-t p-4" style="background: var(--header-bg); border-color: var(--header-border);">
+      <div class="max-w-3xl mx-auto flex">
+        <textarea 
+          id="code-input" 
+          class="theme-transition flex-1 p-3 rounded-l-lg border focus:outline-none focus:ring-2 focus:border-transparent resize-none"
+          style="background: var(--input-bg); color: var(--input-text); border-color: var(--input-border); --tw-ring-color: var(--button-bg);"
+          placeholder="Enter a description for code generation, or paste code for debugging/explanation..."
+          rows="2"
+        ></textarea>
+        <button 
+          id="send-button" 
+          onclick="generateCode()" 
+          class="theme-transition px-4 rounded-r-lg flex items-center justify-center focus:outline-none focus:ring-2"
+          style="background: var(--button-bg); color: var(--button-text); --tw-ring-color: var(--button-hover);"
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+            <path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd" />
+          </svg>
+        </button>
+      </div>
+    </div>
+    
+    <!-- Footer -->
+    <div class="theme-transition py-3 text-center text-sm border-t" style="color: var(--ai-bubble-text); border-color: var(--header-border);">
+      <p>Made with <span class="heart-beat" style="color: var(--button-bg);">❤️</span> by Utsav Mishra</p>
+    </div>
+  </main>
+
+  <script>
+    // Add event listener for Enter key (with Shift+Enter for new line)
+    document.getElementById('code-input').addEventListener('keydown', function(e) {
+      if (e.key === 'Enter' && !e.shiftKey) {
+        e.preventDefault();
+        generateCode();
+      }
+    });
+    
+    async function generateCode() {
+      const inputText = document.getElementById("code-input").value.trim();
+      if (!inputText) return;
+      
+      const mode = document.getElementById("mode").value;
+      const promptTemplate = document.getElementById("prompt-template").value;
+      const chatContainer = document.getElementById("chat-container");
+      
+      // Add user message
+      addMessage(inputText, 'user');
+      
+      // Clear input
+      document.getElementById("code-input").value = '';
+      
+      // Add AI message with loading indicator
+      const aiMessageId = 'ai-message-' + Date.now();
+      addMessage('<div class="spinner mx-auto"></div>', 'ai', aiMessageId);
+      
+      // Scroll to bottom
+      chatContainer.scrollTop = chatContainer.scrollHeight;
+      
+      try {
+        // Prepare form data
+        let formData = new FormData();
+        formData.append("prompt", inputText);
+        formData.append("mode", mode);
+        if (promptTemplate) {
+          formData.append("prompt_template", promptTemplate);
+        }
+        
+        // Send request
+        let response = await fetch("/generate_code", {
+          method: "POST",
+          body: formData
+        });
+        
+        if (!response.ok) {
+          updateMessage(aiMessageId, "Error: Failed to process the request. Please try again.");
+          return;
+        }
+        
+        let data = await response.json();
+        
+        // Format code with syntax highlighting
+        const formattedCode = formatCode(data.code);
+        updateMessage(aiMessageId, formattedCode);
+      } catch (error) {
+        updateMessage(aiMessageId, "Error: " + error.message);
+      }
+      
+      // Scroll to bottom again after content is loaded
+      chatContainer.scrollTop = chatContainer.scrollHeight;
+    }
+    
+    function addMessage(content, sender, messageId = null) {
+      const chatContainer = document.getElementById("chat-container");
+      const messageDiv = document.createElement('div');
+      messageDiv.className = 'flex flex-col max-w-3xl mx-auto w-full';
+      
+      const bubble = document.createElement('div');
+      bubble.className = 'theme-transition p-4 rounded-2xl mb-4 shadow-md';
+      
+      if (sender === 'user') {
+        bubble.className += ' rounded-tr-sm self-end';
+        bubble.style.background = 'var(--user-bubble-bg)';
+        bubble.style.color = 'var(--user-bubble-text)';
+      } else {
+        bubble.className += ' rounded-tl-sm border';
+        bubble.style.background = 'var(--ai-bubble-bg)';
+        bubble.style.color = 'var(--ai-bubble-text)';
+        bubble.style.borderColor = 'var(--ai-bubble-border)';
+        if (messageId) {
+          bubble.id = messageId;
+        }
+      }
+      
+      bubble.innerHTML = content;
+      messageDiv.appendChild(bubble);
+      chatContainer.appendChild(messageDiv);
+    }
+    
+    function updateMessage(messageId, content) {
+      const messageElement = document.getElementById(messageId);
+      if (messageElement) {
+        messageElement.innerHTML = content;
+      }
+    }
+    
+    function formatCode(code) {
+      // Simple code formatting - in a real app, you might use a syntax highlighter library
+      return `<pre class="theme-transition p-3 rounded-md overflow-x-auto text-sm" style="background: var(--code-bg); color: var(--code-text);">${escapeHtml(code)}</pre>
+              <button onclick="copyToClipboard(this)" class="theme-transition mt-2 text-sm flex items-center" style="color: var(--button-bg);">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3" />
+                </svg>
+                Copy code
+              </button>`;
+    }
+    
+    function escapeHtml(unsafe) {
+      return unsafe
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+    }
+    
+    function copyToClipboard(button) {
+      const preElement = button.previousElementSibling;
+      const code = preElement.textContent;
+      
+      navigator.clipboard.writeText(code)
+        .then(() => {
+          // Change button text temporarily
+          const originalText = button.innerHTML;
+          button.innerHTML = `
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+            </svg>
+            Copied!`;
+          
+          setTimeout(() => {
+            button.innerHTML = originalText;
+          }, 2000);
+        })
+        .catch(err => {
+          console.error('Failed to copy: ', err);
+        });
+    }
+    
+    // Add a glowing effect to the send button
+    const sendButton = document.getElementById('send-button');
+    setInterval(() => {
+      sendButton.classList.toggle('shadow-glow');
+    }, 2000);
+    
+    // Dark mode toggle functionality
+    const themeToggle = document.getElementById('theme-toggle');
+    const darkIcon = document.getElementById('dark-icon');
+    const lightIcon = document.getElementById('light-icon');
+    
+    // Check for saved theme preference or use preferred color scheme
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme === 'dark' || (!savedTheme && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+      document.body.classList.add('dark-mode');
+      darkIcon.classList.remove('hidden');
+      lightIcon.classList.add('hidden');
+    }
+    
+    // Toggle theme function
+    themeToggle.addEventListener('click', () => {
+      document.body.classList.toggle('dark-mode');
+      const isDarkMode = document.body.classList.contains('dark-mode');
+      
+      // Update icons
+      if (isDarkMode) {
+        darkIcon.classList.remove('hidden');
+        lightIcon.classList.add('hidden');
+      } else {
+        darkIcon.classList.add('hidden');
+        lightIcon.classList.remove('hidden');
+      }
+      
+      // Save preference
+      localStorage.setItem('theme', isDarkMode ? 'dark' : 'light');
+    });
+    
+    // Update placeholder text based on selected mode
+    document.getElementById('mode').addEventListener('change', function() {
+      const mode = this.value;
+      const inputField = document.getElementById('code-input');
+      
+      if (mode === 'generate') {
+        inputField.placeholder = "Enter a description (e.g., 'Python function for Fibonacci')...";
+      } else if (mode === 'debug') {
+        inputField.placeholder = "Paste your code here for debugging...";
+      } else if (mode === 'explain') {
+        inputField.placeholder = "Paste code here that you'd like explained...";
+      }
+    });
+    
+    // Set initial placeholder based on default mode
+    document.addEventListener('DOMContentLoaded', function() {
+      const mode = document.getElementById('mode').value;
+      const inputField = document.getElementById('code-input');
+      
+      if (mode === 'generate') {
+        inputField.placeholder = "Enter a description (e.g., 'Python function for Fibonacci')...";
+      } else if (mode === 'debug') {
+        inputField.placeholder = "Paste your code here for debugging...";
+      } else if (mode === 'explain') {
+        inputField.placeholder = "Paste code here that you'd like explained...";
+      }
+      
+      // Load prompt templates
+      loadPromptTemplates();
+    });
+    
+    // Load prompt templates
+    async function loadPromptTemplates() {
+      try {
+        const response = await fetch('/prompts');
+        if (!response.ok) {
+          console.error('Failed to load prompt templates');
+          return;
+        }
+        
+        const data = await response.json();
+        const promptSelect = document.getElementById('prompt-template');
+        
+        // Clear existing options except the first one
+        while (promptSelect.options.length > 1) {
+          promptSelect.remove(1);
+        }
+        
+        // Add new options
+        data.prompts.forEach(prompt => {
+          const option = document.createElement('option');
+          option.value = prompt.file;
+          option.textContent = prompt.name;
+          promptSelect.appendChild(option);
+        });
+      } catch (error) {
+        console.error('Error loading prompt templates:', error);
+      }
+    }
+    
+    // View Prompt button functionality
+    document.getElementById('view-prompt').addEventListener('click', async () => {
+      const promptTemplate = document.getElementById('prompt-template').value;
+      if (!promptTemplate) {
+        alert('Please select a prompt template first');
+        return;
+      }
+      
+      try {
+        const response = await fetch(`/prompts/${promptTemplate}`);
+        if (!response.ok) {
+          alert('Failed to load prompt content');
+          return;
+        }
+        
+        const data = await response.json();
+        
+        // Create a modal to display the prompt content
+        const modal = document.createElement('div');
+        modal.className = 'fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50';
+        modal.innerHTML = `
+          <div class="theme-transition bg-white dark:bg-gray-800 rounded-lg shadow-xl max-w-4xl w-full max-h-[80vh] overflow-y-auto p-6" style="background: var(--ai-bubble-bg); color: var(--ai-bubble-text);">
+            <div class="flex justify-between items-center mb-4">
+              <h3 class="text-xl font-bold">Prompt Template: ${promptTemplate.replace('.txt', '')}</h3>
+              <button id="close-modal" class="text-gray-500 hover:text-gray-700 dark:text-gray-300 dark:hover:text-gray-100">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                </svg>
+              </button>
+            </div>
+            <pre class="theme-transition p-4 rounded-md overflow-x-auto text-sm whitespace-pre-wrap" style="background: var(--code-bg); color: var(--code-text);">${escapeHtml(data.content)}</pre>
+          </div>
+        `;
+        
+        document.body.appendChild(modal);
+        
+        // Close modal when clicking the close button or outside the modal
+        document.getElementById('close-modal').addEventListener('click', () => {
+          document.body.removeChild(modal);
+        });
+        
+        modal.addEventListener('click', (e) => {
+          if (e.target === modal) {
+            document.body.removeChild(modal);
+          }
+        });
+      } catch (error) {
+        console.error('Error viewing prompt:', error);
+        alert('Error viewing prompt: ' + error.message);
+      }
+    });
+  </script>
+</body>
+</html>
