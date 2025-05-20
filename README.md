@@ -1,135 +1,165 @@
-# Manus AI Agent Framework
+# 🧠 Code Companion
 
-A powerful AI agent framework that uses Ollama and codellama:7b-instruct to build applications autonomously. This implementation focuses on building a responsive blog platform with FastAPI, React, and TailwindCSS.
+**Personal AI Coder Agent**
 
-## Features
+A powerful autonomous AI agent framework built with Ollama and CodeLlama:7B-Instruct, designed to plan, code, and improve software applications—starting with a responsive Blog Platform using FastAPI, HTML, and TailwindCSS.
 
-- 🤖 Autonomous task planning and execution
-- 📝 Code generation and review
-- 🔄 Continuous improvement through reflection
-- 🌐 Modern web interface with real-time status updates
-- 📦 File generation and management
-- 🔍 Code validation and feedback
+---
 
-## Prerequisites
+## 🚀 Give your coding superpowers an AI upgrade – fully local, private, and open-source!
 
-- Python 3.10.12
-- Node.js 20.18.0
-- Ollama with codellama:7b-instruct model
-- Git
+---
 
-## Setup
+## 🎯 Key Features
 
-1. Clone the repository:
+* 🤖 **Autonomous Task Planning & Execution** — Just describe your goal, and let the agent do the work.
+* 💡 **AI Code Generation & Review** — Generate backend, frontend, and logic in seconds.
+* 🧠 **Self-Improving Critic & Reflection Loop** — Smart feedback cycles to optimize and revise.
+* 🌐 **Modern Web UI** — Built with React + TailwindCSS to show real-time status and task flow.
+* 📦 **Downloadable Code Files** — Easily view, edit, or run generated projects.
+* 🔍 **Live Code Validation** — Backend checks and feedback via API endpoints.
+
+---
+
+## 📽️ Demo Video & Screenshots
+
+<p align="center"> <a href="/images/sample.mp4"> <img src="images/sample.mp4" alt="Watch Demo" width="100%"/> </a> </p>
+
+*Screenshots will be added soon inside the `images/` folder.*
+
+---
+
+## 🛠️ Prerequisites
+
+* Python 3.10.12
+* Node.js 20.18.0
+* Ollama installed with `codellama:7b-instruct` model
+* Git
+
+---
+
+## ⚙️ Setup Instructions
+
+1. Clone the Repository
+
    ```bash
-   git clone <repository-url>
-   cd manus-agent
-   ```
+   git clone https://github.com/bhaktofmahakal/Code-Companion-personal-ai-coder-agent.git
+   cd Code-Companion-personal-ai-coder-agent
+Backend Setup (FastAPI)
 
-2. Set up the Python backend:
-   ```bash
-   # Create and activate virtual environment
-   python -m venv venv
-   source venv/bin/activate  # On Windows: venv\Scripts\activate
+      python -m venv venv
+      source venv/bin/activate  # Windows: venv\Scripts\activate
 
-   # Install dependencies
-   pip install -r requirements.txt
-   ```
+Frontend Setup (html + TailwindCSS)
 
-3. Set up the React frontend:
-   ```bash
-   cd frontend
-   npm install
-   ```
+      Start Ollama
+      ollama run codellama:7b-instruct
 
-4. Start Ollama with codellama:7b-instruct:
-   ```bash
-   ollama run codellama:7b-instruct
-   ```
+Start Backend API
 
-## Running the Application
+    uvicorn backend.main:app --host 0.0.0.0 --port 8000
 
-1. Start the backend server:
-   ```bash
-   # From the project root
-   uvicorn backend.main:app --host 0.0.0.0 --port 8000
-   ```
+🧪 How It Works
+      
+      Sample Input : “Build a blog platform”
+      
+      The agent will:
+      
+      Plan tasks using prompts
+      
+      Generate and execute code
+      
+      Review and improve the solution
+      
+      Provide downloadable output
 
-2. Start the frontend development server:
-   ```bash
-   # From the frontend directory
-   npm start
-   ```
+🧠 AI Code Companion – Main Capabilities
+      
+      Code Generation
+      
+      Generates clean, well-documented code in any programming language based on your descriptions.
+      
+      Creates applications, functions, and algorithms tailored to your needs.
+      
+      Code Debugging
+      
+      Identifies errors and bugs in your code.
+      
+      Provides fixes and improved versions.
+      
+      Analyzes root causes to help you resolve issues effectively.
+      
+      Code Explanation
+      
+      Offers detailed, step-by-step explanations of code snippets.
+      
+      Clarifies purpose and functionality.
+      
+      Simplifies complex code and suggests improvements.
+      
+      Prompt Templates
+      
+      Uses specialized templates like:
+      
+      Manus AI Assistant: Content creation and problem solving.
+      
+      Agent Loop: Data processing and website creation.
+      
+      Modules: Advanced knowledge integration.
+      
+      User Interface Features
+      
+      Supports dark/light mode.
+      
+      Three modes: Generate, Debug, Explain.
+      
+      View prompt templates before use.
+      
+      Copy generated code easily.
+      
+      Chat interface with saved history.
+      
+      Technical Features
+      
+      Local LLM execution with Ollama.
+      
+      Powered by CodeLlama 7B for quality code understanding.
+      
+      FastAPI backend for scalability.
+      
+      Non-streaming response for stability.
+      
+      Static file serving and responsive design.
+      
+      Programming Language Support
+      Includes JavaScript, Python, HTML/CSS, Bash, SQL, PHP, Ruby, Java, C/C++, Go, and more.
+      
+      Framework & Library Support
+      Compatible with React, Vue, Angular, Node.js, Express, Django, Flask, pandas, numpy, testing tools, and ORMs.
 
-3. Access the application:
-   - Frontend: http://localhost:3000
-   - Backend API: http://localhost:8000/docs
+🌍 Contributing
 
-## Usage
+    We welcome contributions!
 
-1. Open the frontend in your browser
-2. Enter your goal in the input field (e.g., "Build a blog platform")
-3. The agent will:
-   - Generate a task plan
-   - Execute tasks autonomously
-   - Generate and review code
-   - Provide downloadable files
-   - Suggest improvements
+Fork this repository
 
-## Project Structure
+      Create your feature branch: git checkout -b my-feature
+      
+      Commit changes: git commit -m 'Add feature'
+      
+      Push to branch: git push origin my-feature
+      
+      Create a Pull Request
 
-```
-manus-agent/
-├── backend/
-│   ├── core/
-│   │   └── ollama_client.py
-│   ├── routes/
-│   │   ├── planner.py
-│   │   ├── executor.py
-│   │   ├── memory.py
-│   │   └── critic.py
-│   └── main.py
-├── frontend/
-│   ├── src/
-│   │   ├── components/
-│   │   ├── App.jsx
-│   │   └── index.css
-│   ├── package.json
-│   └── tailwind.config.js
-├── prompts/
-│   ├── system.txt
-│   ├── planner.txt
-│   ├── executor.txt
-│   ├── memory.txt
-│   └── critic.txt
-├── requirements.txt
-└── README.md
-```
+📜 License
 
-## API Endpoints
+    Licensed under the MIT License. See LICENSE for details.
 
-- `POST /run-agent`: Run the agent with a goal
-- `GET /status`: Check agent status
-- `GET /files/{file_path}`: Download generated files
-- `POST /planner/plan`: Generate task plan
-- `POST /executor/execute`: Execute a task
-- `POST /memory/reflect`: Reflect on past actions
-- `POST /critic/review`: Review code output
+🙏 Acknowledgments
 
-## Contributing
+      💡 Ollama – Local LLM orchestration
+      
+      ⚡ FastAPI – Async Python API
+      
+      🎨 HTML + TailwindCSS – Frontend stack
 
-1. Fork the repository
-2. Create a feature branch
-3. Commit your changes
-4. Push to the branch
-5. Create a Pull Request
-
-## License
-
-This project is licensed under the MIT License - see the LICENSE file for details.
-
-## Acknowledgments
-
-- Ollama team for the amazing AI model
-- FastAPI for the high-performance backend framework
-- React and TailwindCSS for the beautiful frontend 
