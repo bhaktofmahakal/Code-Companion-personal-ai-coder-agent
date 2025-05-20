@@ -23,7 +23,7 @@ A powerful autonomous AI agent framework built with Ollama and CodeLlama:7B-Inst
 
 ## 📽️ Demo Video & Screenshots
 
-<p align="center"> <a href="https://youtu.be/pDlP85JFjF4"> <img src="https://youtu.be/pDlP85JFjF4" alt="Watch Demo" width="100%"/> </a> </p>
+<p align="center"> <a href="https://youtu.be/pDlP85JFjF4"> <img src="images\project.jpg" alt="Watch Demo" width="100%"/> </a> </p>
 
 
 *Screenshots will be added soon inside the `images/` folder.*
