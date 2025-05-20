@@ -100,72 +100,57 @@ Start Backend API
       Provide downloadable output
 
 🧠 AI Code Companion – Main Capabilities
-      
-      Code Generation
-      
-      Generates clean, well-documented code in any programming language based on your descriptions.
-      
-      Creates applications, functions, and algorithms tailored to your needs.
-      
-      Code Debugging
-      
-      Identifies errors and bugs in your code.
-      
-      Provides fixes and improved versions.
-      
-      Analyzes root causes to help you resolve issues effectively.
-      
-      Code Explanation
-      
-      Offers detailed, step-by-step explanations of code snippets.
-      
-      Clarifies purpose and functionality.
-      
-      Simplifies complex code and suggests improvements.
-      
-      Prompt Templates
-      
-      Uses specialized templates like:
-      
-      Manus AI Assistant: Content creation and problem solving.
-      
-      Agent Loop: Data processing and website creation.
-      
-      Modules: Advanced knowledge integration.
-      
-      User Interface Features
-      
-      Supports dark/light mode.
-      
-      Three modes: Generate, Debug, Explain.
-      
-      View prompt templates before use.
-      
-      Copy generated code easily.
-      
-      Chat interface with saved history.
-      
-      Technical Features
-      
-      Local LLM execution with Ollama.
-      
-      Powered by CodeLlama 7B for quality code understanding.
-      
-      FastAPI backend for scalability.
-      
-      Non-streaming response for stability.
-      
-      Static file serving and responsive design.
-      
-      Programming Language Support
-      Includes JavaScript, Python, HTML/CSS, Bash, SQL, PHP, Ruby, Java, C/C++, Go, and more.
-      
-      Framework & Library Support
-      Compatible with React, Vue, Angular, Node.js, Express, Django, Flask, pandas, numpy, testing tools, and ORMs.
 
-🌍 Contributing
+### Core Features
+- **Code Generation**: Generate clean, well-documented code snippets based on your descriptions
+- **Code Debugging**: Identify and fix issues in your code
+- **Code Explanation**: Get detailed explanations of how code works
 
-    We welcome contributions!
+### Advanced Features (Inspired by Devin AI)
+- **Code Analysis**: Analyze code structure and get insights about complexity and potential improvements
+- **Test Generation**: Automatically generate unit tests for your code
+- **Security Scanning**: Check your code for potential security vulnerabilities
+- **Implementation Planning**: Break down complex coding tasks into manageable steps
+- **Project Generation**: Create multi-file projects from a simple description
+- **Code Sharing**: Share your code via unique URLs
+- **Custom Templates**: Create and save your own prompt templates
+- **Syntax Highlighting**: Format code with beautiful syntax highlighting
+   
+3. Select a mode (generate, debug, explain, etc.) and enter your request.
+
+## API Endpoints
+
+The application provides several API endpoints:
+
+- `/generate_code`: Generate, debug, or explain code
+- `/analyze_code`: Analyze code structure
+- `/generate_tests`: Generate unit tests
+- `/security_scan`: Scan code for security issues
+- `/plan_implementation`: Break down complex tasks
+- `/generate_project`: Create multi-file projects
+- `/share_code`: Share code via unique URLs
+- `/save_prompt_template`: Save custom prompt templates
+- `/highlight_code`: Format code with syntax highlighting
+
+## Project Structure
+
+- `app.py`: Main FastAPI application
+- `utils.py`: Utility functions for code analysis, test generation, etc.
+- `static/`: Static files (HTML, CSS, JS)
+- `Prompts/`: Prompt templates
+- `shared_code/`: Shared code snippets
+- `generated/`: Generated project files
+
+## Technologies Used
+
+- **Backend**: FastAPI, Python
+- **Frontend**: HTML, CSS, JavaScript, TailwindCSS
+- **AI**: Ollama, CodeLlama
+- **Code Analysis**: Custom Python utilities
+
+## Contributing
+
+Contributions are welcome! Please feel free to submit a Pull Request.
 
 Fork this repository
 
@@ -183,9 +168,11 @@ Fork this repository
 
 🙏 Acknowledgments
 
-      💡 Ollama – Local LLM orchestration
-      
+      💡 Ollama – Local LLM orchestration      
       ⚡ FastAPI – Async Python API
-      
       🎨 HTML + TailwindCSS – Frontend stack
+   
+      - Inspired by Devin AI's capabilities
+      - Uses Ollama for local LLM inference
+      - Built with FastAPI for high-performance API endpoints
 
