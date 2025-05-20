@@ -32,12 +32,12 @@ A powerful autonomous AI agent framework built with Ollama and CodeLlama:7B-Inst
 
 ### ⚠️ **Performance Note (Important)**
 
-      👉 **If the Code Companion AI is giving slow responses on your device, please note that the issue is not with the code.**  
-      This usually happens when your device's RAM is under heavy load or your system lacks proper resources (RAM or GPU).
-      
-      - **Slow responses typically occur due to limited free RAM or background processes.**
-      - **If the AI doesn't run at all, your system likely has less than 8GB of RAM or no suitable GPU.**
-      - **✅ Recommended: Use a machine with at least 16GB RAM and a dedicated GPU (NVIDIA 6GB+ VRAM preferred) for optimal performance.**
+👉 **If the Code Companion AI is giving slow responses on your device, please note that the issue is not with the code.**  
+This usually happens when your device's RAM is under heavy load or your system lacks proper resources (RAM or GPU).
+
+- **Slow responses typically occur due to limited free RAM or background processes.**
+- **If the AI doesn't run at all, your system likely has less than 8GB of RAM or no suitable GPU.**
+- **✅ Recommended: Use a machine with at least 16GB RAM and a dedicated GPU (NVIDIA 6GB+ VRAM preferred) for optimal performance.**
 
 ---
 
@@ -51,8 +51,7 @@ A powerful autonomous AI agent framework built with Ollama and CodeLlama:7B-Inst
 
 ---
 
-    ✅ **When using these advanced models on a capable system, this Code Companion project can perform at a level comparable to GPT-4.5 AI coding agents like Replit Ghostwriter, Devin AI, or Cursor AI.**
-
+✅ **When using these advanced models on a capable system, this Code Companion project can perform at a level comparable to GPT-4.5 AI coding agents like Replit Ghostwriter, Devin AI, or Cursor AI.**
 
 
 ## 🛠️ Prerequisites
