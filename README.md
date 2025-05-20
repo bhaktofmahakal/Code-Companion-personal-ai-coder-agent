@@ -19,7 +19,7 @@ A powerful autonomous AI agent framework built with Ollama and CodeLlama:7B-Inst
       🔍 Live Code Validation – Backend checks and feedback via API endpoints.
 
 📽️ Demo Video & Screenshots
-<p align="center"> <a href="/images/samle.mp4"> <img src="images/sample.mp4" alt="Watch Demo" width="100%"/> </a> </p>
+<p align="center"> <a href="/images/sample.mp4"> <img src="images/sample.mp4" alt="Watch Demo" width="100%"/> </a> </p>
 📷 Screenshots will be added soon inside the images/ folder.
 
 🛠️ Prerequisites
