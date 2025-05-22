@@ -15,7 +15,7 @@ A powerful autonomous AI agent framework built with Ollama and CodeLlama:7B-Inst
 * 🤖 **Autonomous Task Planning & Execution** — Just describe your goal, and let the agent do the work.
 * 💡 **AI Code Generation & Review** — Generate backend, frontend, and logic in seconds.
 * 🧠 **Self-Improving Critic & Reflection Loop** — Smart feedback cycles to optimize and revise.
-* 🌐 **Modern Web UI** — Built with React + TailwindCSS to show real-time status and task flow.
+* 🌐 **Modern Web UI** — Built with HTML + TailwindCSS to show real-time status and task flow.
 * 📦 **Downloadable Code Files** — Easily view, edit, or run generated projects.
 * 🔍 **Live Code Validation** — Backend checks and feedback via API endpoints.
 
