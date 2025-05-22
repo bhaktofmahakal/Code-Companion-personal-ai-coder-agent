@@ -13,22 +13,29 @@
         extend: {
           colors: {
             primary: {
-              DEFAULT: '#f8f5ff', // 
-              hover: '#2563eb',
-              focus: '#1d4ed8',
+              DEFAULT: '#6366f1', // indigo-500 for light mode
+              dark: '#38bdf8',    // sky-400 for dark mode
+              hover: '#4f46e5',   // indigo-600
+              focus: '#4338ca',   // indigo-700
+            },
+            secondary: {
+              DEFAULT: '#22c55e', // green-500 for light mode
+              dark: '#facc15',    // yellow-400 for dark mode
             },
             dark: {
-              DEFAULT: 'f8f5ff', // Slate 800
-              lighter: 'f8f5ff', // Slate 700
-              darker: '#0f172a',  // Slate 900
+              DEFAULT: '#1e293b', // slate-800
+              lighter: '#334155', // slate-700
+              darker: '#0f172a',  // slate-900
             },
             light: {
-              DEFAULT: '#f8fafc', // Slate 50
-              darker: '#e2e8f0',  // Slate 200
+              DEFAULT: '#f9fafb', // gray-50
+              darker: '#e5e7eb',  // gray-200
             }
           },
           boxShadow: {
-            glow: '0 0 10px rgba(236, 72, 153, 0.5), 0 0 20px rgba(236, 72, 153, 0.3)'
+            glow: '0 0 15px rgba(56, 189, 248, 0.3), 0 0 30px rgba(56, 189, 248, 0.2)',
+            'soft-xl': '0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.05)',
+            'card': '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)'
           }
         }
       }
@@ -36,47 +43,58 @@
   </script>
   <style>
     :root {
-      --bg-gradient: linear-gradient(to right, #fce7f3, #f8f5ff, #e9f6f3);
-      --header-bg: rgba(255, 255, 255, 0.7);
-      --header-border: #fbcfe8;
+      /* Light Mode - Default */
+      --bg-gradient: linear-gradient(135deg, #f9fafb, #ffffff, #f3f4f6);
+      --header-bg: white;
+      --header-border: #e5e7eb;
       --input-bg: white;
       --input-text: #1f2937;
-      --input-border: #fbcfe8;
-      --button-bg: #ec4899;
-      --button-hover: #db2777;
+      --input-border: #e5e7eb;
+      --button-bg: #6366f1;
+      --button-hover: #4f46e5;
       --button-text: white;
-      --user-bubble-bg: #ec4899;
+      --user-bubble-bg: #6366f1;
       --user-bubble-text: white;
-      --ai-bubble-bg: rgba(255, 255, 255, 0.8);
-      --ai-bubble-border: #fbcfe8;
+      --ai-bubble-bg: white;
+      --ai-bubble-border: #e5e7eb;
       --ai-bubble-text: #1f2937;
       --code-bg: #1f2937;
-      --code-text: white;
+      --code-text: #f8fafc;
       --icon-color: #1f2937;
-      --spinner-border: rgba(236, 72, 153, 0.3);
-      --spinner-border-top: #ec4899;
+      --spinner-border: rgba(99, 102, 241, 0.3);
+      --spinner-border-top: #6366f1;
+      --share-url-bg: #f9fafb;
+      --share-url-text: #1f2937;
+      --share-url-border: #e5e7eb;
+      --share-success-bg: #dbeafe;
+      --share-success-text: #1e40af;
     }
 
     .dark-mode {
-      --bg-gradient: linear-gradient(to right, #0f172a, #1e293b, #0f172a);
-      --header-bg: rgba(15, 23, 42, 0.7);
+      --bg-gradient: linear-gradient(135deg, #0f172a, #1e293b, #0f172a);
+      --header-bg: #1e293b;
       --header-border: #334155;
       --input-bg: #1e293b;
-      --input-text: #f1f5f9;
+      --input-text: #f8fafc;
       --input-border: #334155;
-      --button-bg: #8b5cf6;
-      --button-hover: #7c3aed;
-      --button-text: white;
-      --user-bubble-bg: #8b5cf6;
-      --user-bubble-text: white;
-      --ai-bubble-bg: rgba(30, 41, 59, 0.8);
+      --button-bg: #38bdf8;
+      --button-hover: #0ea5e9;
+      --button-text: #0f172a;
+      --user-bubble-bg: #38bdf8;
+      --user-bubble-text: #0f172a;
+      --ai-bubble-bg: #1e293b;
       --ai-bubble-border: #334155;
-      --ai-bubble-text: #f1f5f9;
+      --ai-bubble-text: #f8fafc;
       --code-bg: #0f172a;
-      --code-text: #f1f5f9;
-      --icon-color: #f1f5f9;
-      --spinner-border: rgba(139, 92, 246, 0.3);
-      --spinner-border-top: #8b5cf6;
+      --code-text: #f8fafc;
+      --icon-color: #f8fafc;
+      --spinner-border: rgba(56, 189, 248, 0.3);
+      --spinner-border-top: #38bdf8;
+      --share-url-bg: #0f172a;
+      --share-url-text: #f8fafc;
+      --share-url-border: #334155;
+      --share-success-bg: #0c4a6e;
+      --share-success-text: #38bdf8;
     }
 
     body {
@@ -138,7 +156,51 @@
       transition: background-color 0.3s ease, 
                   color 0.3s ease, 
                   border-color 0.3s ease, 
-                  background 0.3s ease;
+                  background 0.3s ease,
+                  transform 0.2s ease;
+    }
+    
+    /* Ensure copy buttons are always visible with good contrast */
+    [data-copy-type="share-url"],
+    [data-copy-type="highlighted"],
+    button[onclick*="copyHighlightedCode"],
+    button[onclick*="copyShareUrl"] {
+      font-weight: 500;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    }
+    
+    /* Add hover effect for better UX */
+    [data-copy-type="share-url"]:hover,
+    [data-copy-type="highlighted"]:hover,
+    button[onclick*="copyHighlightedCode"]:hover,
+    button[onclick*="copyShareUrl"]:hover {
+      opacity: 0.9;
+      transform: translateY(-1px);
+    }
+    
+    /* Active state for buttons */
+    [data-copy-type="share-url"]:active,
+    [data-copy-type="highlighted"]:active,
+    button[onclick*="copyHighlightedCode"]:active,
+    button[onclick*="copyShareUrl"]:active {
+      transform: translateY(1px);
+    }
+    
+    /* Fix for dark mode visibility */
+    .dark-mode button[onclick*="copyHighlightedCode"],
+    .dark-mode button[onclick*="copyShareUrl"],
+    .dark-mode [data-copy-type="share-url"],
+    .dark-mode [data-copy-type="highlighted"],
+    .dark-mode [data-share-url] {
+      background-color: var(--button-bg) !important;
+      color: var(--button-text) !important;
+    }
+    
+    /* Make sure the share URL is visible in dark mode */
+    .dark-mode input[id^="share-url-"] {
+      background-color: var(--share-url-bg) !important;
+      color: var(--share-url-text) !important;
+      border-color: var(--share-url-border) !important;
     }
   </style>
 </head>
@@ -153,16 +215,28 @@
         <h1 class="text-xl font-bold theme-transition" style="color: var(--ai-bubble-text);"> AI Code Companion</h1>
       </div>
       <div class="flex items-center space-x-4">
-        <select id="mode" class="theme-transition px-3 py-2 rounded-md border focus:outline-none focus:ring-2 focus:border-transparent" style="background: var(--input-bg); color: var(--input-text); border-color: var(--input-border); --tw-ring-color: var(--button-bg);">
-          <option value="generate">Generate Code</option>
-          <option value="debug">Debug Code</option>
-          <option value="explain">Explain Code</option>
+        <select id="prompt-template" aria-label="Select prompt template" class="theme-transition px-3 py-2 rounded-md border focus:outline-none focus:ring-2 focus:border-transparent" style="background: var(--input-bg); color: var(--input-text); border-color: var(--input-border); --tw-ring-color: var(--button-bg);">
+          <option value="">Select Template</option>
+          <!-- Templates will be loaded dynamically -->
         </select>
-        <select id="prompt-template" class="theme-transition px-3 py-2 rounded-md border focus:outline-none focus:ring-2 focus:border-transparent" style="background: var(--input-bg); color: var(--input-text); border-color: var(--input-border); --tw-ring-color: var(--button-bg);">
-          <option value="">No Prompt Template</option>
-          <!-- Prompt templates will be loaded here -->
+        <select id="language" aria-label="Select programming language" class="theme-transition px-3 py-2 rounded-md border focus:outline-none focus:ring-2 focus:border-transparent" style="background: var(--input-bg); color: var(--input-text); border-color: var(--input-border); --tw-ring-color: var(--button-bg);">
+          <option value="python">Python</option>
+          <option value="javascript">JavaScript</option>
+          <option value="java">Java</option>
+          <option value="csharp">C#</option>
+          <option value="cpp">C++</option>
+          <option value="go">Go</option>
+          <option value="ruby">Ruby</option>
+          <option value="php">PHP</option>
+          <option value="swift">Swift</option>
+          <option value="kotlin">Kotlin</option>
+          <option value="rust">Rust</option>
+          <option value="typescript">TypeScript</option>
+          <option value="html">HTML</option>
+          <option value="css">CSS</option>
+          <option value="sql">SQL</option>
         </select>
-        <button id="theme-toggle" class="theme-transition p-2 rounded-md border focus:outline-none focus:ring-2" style="background: var(--input-bg); color: var(--icon-color); border-color: var(--input-border); --tw-ring-color: var(--button-bg);">
+        <button id="theme-toggle" class="theme-transition p-2 rounded-md border focus:outline-none focus:ring-2" style="background: var(--input-bg); color: var(--icon-color); border-color: var(--input-border); --tw-ring-color: var(--button-bg);" aria-label="Toggle dark/light theme">
           <svg id="dark-icon" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 hidden" viewBox="0 0 20 20" fill="currentColor">
             <path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z" />
           </svg>
@@ -170,8 +244,11 @@
             <path fill-rule="evenodd" d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" clip-rule="evenodd" />
           </svg>
         </button>
-        <button id="view-prompt" class="theme-transition px-3 py-2 rounded-md border focus:outline-none focus:ring-2" style="background: var(--button-bg); color: var(--button-text); border-color: var(--input-border); --tw-ring-color: var(--button-hover);">
+        <button id="view-prompt" class="theme-transition px-3 py-2 rounded-md border focus:outline-none focus:ring-2" style="background: var(--input-bg); color: var(--input-text); border-color: var(--input-border); --tw-ring-color: var(--button-bg);">
           View Prompt
+        </button>
+        <button id="advanced-features" class="theme-transition px-3 py-2 rounded-md border focus:outline-none focus:ring-2" style="background: var(--button-bg); color: var(--button-text); border-color: var(--input-border); --tw-ring-color: var(--button-hover);">
+          Advanced
         </button>
       </div>
     </div>
@@ -191,24 +268,50 @@
     
     <!-- Fixed input bar at the bottom -->
     <div class="theme-transition border-t p-4" style="background: var(--header-bg); border-color: var(--header-border);">
-      <div class="max-w-3xl mx-auto flex">
-        <textarea 
-          id="code-input" 
-          class="theme-transition flex-1 p-3 rounded-l-lg border focus:outline-none focus:ring-2 focus:border-transparent resize-none"
-          style="background: var(--input-bg); color: var(--input-text); border-color: var(--input-border); --tw-ring-color: var(--button-bg);"
-          placeholder="Enter a description for code generation, or paste code for debugging/explanation..."
-          rows="2"
-        ></textarea>
-        <button 
-          id="send-button" 
-          onclick="generateCode()" 
-          class="theme-transition px-4 rounded-r-lg flex items-center justify-center focus:outline-none focus:ring-2"
-          style="background: var(--button-bg); color: var(--button-text); --tw-ring-color: var(--button-hover);"
-        >
-          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-            <path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd" />
-          </svg>
-        </button>
+      <div class="max-w-3xl mx-auto">
+        <!-- Mode options and action buttons -->
+        <div class="flex items-center justify-between mb-3">
+          <select id="mode" aria-label="Select operation mode" class="theme-transition px-3 py-2 rounded-md border focus:outline-none focus:ring-2 focus:border-transparent" style="background: var(--input-bg); color: var(--input-text); border-color: var(--input-border); --tw-ring-color: var(--button-bg);">
+            <option value="generate">Generate Code</option>
+            <option value="debug">Debug Code</option>
+            <option value="explain">Explain Code</option>
+            <option value="analyze">Analyze Code</option>
+            <option value="test">Generate Tests</option>
+            <option value="security">Security Scan</option>
+            <option value="plan">Plan Implementation</option>
+            <option value="project">Generate Project</option>
+          </select>
+          <div class="flex space-x-2">
+            <button id="highlight-code-btn" class="theme-transition px-3 py-2 rounded-md border focus:outline-none focus:ring-2" style="background: var(--input-bg); color: var(--input-text); border-color: var(--input-border); --tw-ring-color: var(--button-bg);">
+              Highlight Code
+            </button>
+            <button id="share-code-btn" class="theme-transition px-3 py-2 rounded-md border focus:outline-none focus:ring-2" style="background: var(--input-bg); color: var(--input-text); border-color: var(--input-border); --tw-ring-color: var(--button-bg);">
+              Share Code
+            </button>
+          </div>
+        </div>
+        
+        <!-- Input area -->
+        <div class="flex">
+          <textarea 
+            id="code-input" 
+            class="theme-transition flex-1 p-3 rounded-l-lg border focus:outline-none focus:ring-2 focus:border-transparent resize-none"
+            style="background: var(--input-bg); color: var(--input-text); border-color: var(--input-border); --tw-ring-color: var(--button-bg);"
+            placeholder="Enter a description for code generation, or paste code for debugging/explanation..."
+            rows="2"
+          ></textarea>
+          <button 
+            id="send-button" 
+            onclick="generateCode()" 
+            class="theme-transition px-4 rounded-r-lg flex items-center justify-center focus:outline-none focus:ring-2"
+            style="background: var(--button-bg); color: var(--button-text); --tw-ring-color: var(--button-hover);"
+            aria-label="Send message"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+              <path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd" />
+            </svg>
+          </button>
+        </div>
       </div>
     </div>
     
@@ -218,6 +321,101 @@
     </div>
   </main>
 
+  <!-- Advanced Features Modal -->
+  <div id="advanced-modal" class="fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center z-50">
+    <div class="bg-white dark:bg-gray-800 rounded-lg shadow-xl max-w-2xl w-full mx-4 max-h-[90vh] overflow-y-auto">
+      <div class="p-6">
+        <div class="flex justify-between items-center mb-4">
+          <h2 class="text-xl font-bold text-gray-900 dark:text-white">Advanced Features</h2>
+          <button id="close-advanced-modal" class="text-gray-500 hover:text-gray-700 dark:text-gray-300 dark:hover:text-white" aria-label="Close advanced features modal">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+            </svg>
+          </button>
+        </div>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <!-- Code Analysis -->
+          <div class="p-4 border rounded-lg hover:shadow-md transition-shadow">
+            <h3 class="font-bold mb-2 text-gray-900 dark:text-white">Code Analysis</h3>
+            <p class="text-sm text-gray-600 dark:text-gray-300 mb-3">Analyze code structure and get insights</p>
+            <button class="feature-btn px-3 py-1 bg-indigo-600 text-white rounded hover:bg-indigo-700" data-feature="analyze">Use Feature</button>
+          </div>
+          
+          <!-- Generate Tests -->
+          <div class="p-4 border rounded-lg hover:shadow-md transition-shadow">
+            <h3 class="font-bold mb-2 text-gray-900 dark:text-white">Generate Tests</h3>
+            <p class="text-sm text-gray-600 dark:text-gray-300 mb-3">Create unit tests for your code</p>
+            <button class="feature-btn px-3 py-1 bg-indigo-600 text-white rounded hover:bg-indigo-700" data-feature="test">Use Feature</button>
+          </div>
+          
+          <!-- Security Scan -->
+          <div class="p-4 border rounded-lg hover:shadow-md transition-shadow">
+            <h3 class="font-bold mb-2 text-gray-900 dark:text-white">Security Scan</h3>
+            <p class="text-sm text-gray-600 dark:text-gray-300 mb-3">Check code for security vulnerabilities</p>
+            <button class="feature-btn px-3 py-1 bg-indigo-600 text-white rounded hover:bg-indigo-700" data-feature="security">Use Feature</button>
+          </div>
+          
+          <!-- Plan Implementation -->
+          <div class="p-4 border rounded-lg hover:shadow-md transition-shadow">
+            <h3 class="font-bold mb-2 text-gray-900 dark:text-white">Plan Implementation</h3>
+            <p class="text-sm text-gray-600 dark:text-gray-300 mb-3">Break down complex tasks into steps</p>
+            <button class="feature-btn px-3 py-1 bg-indigo-600 text-white rounded hover:bg-indigo-700" data-feature="plan">Use Feature</button>
+          </div>
+          
+          <!-- Generate Project -->
+          <div class="p-4 border rounded-lg hover:shadow-md transition-shadow">
+            <h3 class="font-bold mb-2 text-gray-900 dark:text-white">Generate Project</h3>
+            <p class="text-sm text-gray-600 dark:text-gray-300 mb-3">Create multi-file projects from a description</p>
+            <button class="feature-btn px-3 py-1 bg-indigo-600 text-white rounded hover:bg-indigo-700" data-feature="project">Use Feature</button>
+          </div>
+          
+
+          
+          <!-- Create Template -->
+          <div class="p-4 border rounded-lg hover:shadow-md transition-shadow">
+            <h3 class="font-bold mb-2 text-gray-900 dark:text-white">Create Template</h3>
+            <p class="text-sm text-gray-600 dark:text-gray-300 mb-3">Create a custom prompt template</p>
+            <button class="feature-btn px-3 py-1 bg-indigo-600 text-white rounded hover:bg-indigo-700" data-feature="template">Use Feature</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Create Template Modal -->
+  <div id="template-modal" class="fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center z-50">
+    <div class="bg-white dark:bg-gray-800 rounded-lg shadow-xl max-w-2xl w-full mx-4">
+      <div class="p-6">
+        <div class="flex justify-between items-center mb-4">
+          <h2 class="text-xl font-bold text-gray-900 dark:text-white">Create Prompt Template</h2>
+          <button id="close-template-modal" class="text-gray-500 hover:text-gray-700 dark:text-gray-300 dark:hover:text-white" aria-label="Close template modal">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+            </svg>
+          </button>
+        </div>
+        
+        <div class="space-y-4">
+          <div>
+            <label for="template-name" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Template Name</label>
+            <input type="text" id="template-name" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white">
+          </div>
+          
+          <div>
+            <label for="template-content" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Template Content</label>
+            <textarea id="template-content" rows="10" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white"></textarea>
+          </div>
+          
+          <button id="save-template" class="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+            Save Template
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="/static/advanced.js"></script>
   <script>
     // Add event listener for Enter key (with Shift+Enter for new line)
     document.getElementById('code-input').addEventListener('keydown', function(e) {
@@ -227,58 +425,63 @@
       }
     });
     
+    // Main function to process requests
     async function generateCode() {
-      const inputText = document.getElementById("code-input").value.trim();
-      if (!inputText) return;
-      
-      const mode = document.getElementById("mode").value;
-      const promptTemplate = document.getElementById("prompt-template").value;
-      const chatContainer = document.getElementById("chat-container");
-      
-      // Add user message
-      addMessage(inputText, 'user');
-      
-      // Clear input
-      document.getElementById("code-input").value = '';
-      
-      // Add AI message with loading indicator
-      const aiMessageId = 'ai-message-' + Date.now();
-      addMessage('<div class="spinner mx-auto"></div>', 'ai', aiMessageId);
-      
-      // Scroll to bottom
-      chatContainer.scrollTop = chatContainer.scrollHeight;
-      
-      try {
-        // Prepare form data
-        let formData = new FormData();
-        formData.append("prompt", inputText);
-        formData.append("mode", mode);
-        if (promptTemplate) {
-          formData.append("prompt_template", promptTemplate);
+      // Call the processRequest function from advanced.js
+      if (typeof processRequest === 'function') {
+        processRequest();
+      } else {
+        // Fallback to basic functionality if advanced.js is not loaded
+        const inputText = document.getElementById("code-input").value.trim();
+        if (!inputText) return;
+        
+        const mode = document.getElementById("mode").value;
+        const language = document.getElementById("language").value;
+        const chatContainer = document.getElementById("chat-container");
+        
+        // Add user message
+        addMessage(inputText, 'user');
+        
+        // Clear input
+        document.getElementById("code-input").value = '';
+        
+        // Add AI message with loading indicator
+        const aiMessageId = 'ai-message-' + Date.now();
+        addMessage('<div class="spinner mx-auto"></div>', 'ai', aiMessageId);
+        
+        // Scroll to bottom
+        chatContainer.scrollTop = chatContainer.scrollHeight;
+        
+        try {
+          // Prepare form data
+          let formData = new FormData();
+          formData.append("prompt", inputText);
+          formData.append("mode", mode);
+          formData.append("language", language);
+          
+          // Send request
+          let response = await fetch("/generate_code", {
+            method: "POST",
+            body: formData
+          });
+          
+          if (!response.ok) {
+            updateMessage(aiMessageId, "Error: Failed to process the request. Please try again.");
+            return;
+          }
+          
+          let data = await response.json();
+          
+          // Format code with syntax highlighting
+          const formattedCode = formatCode(data.code);
+          updateMessage(aiMessageId, formattedCode);
+        } catch (error) {
+          updateMessage(aiMessageId, "Error: " + error.message);
         }
         
-        // Send request
-        let response = await fetch("/generate_code", {
-          method: "POST",
-          body: formData
-        });
-        
-        if (!response.ok) {
-          updateMessage(aiMessageId, "Error: Failed to process the request. Please try again.");
-          return;
-        }
-        
-        let data = await response.json();
-        
-        // Format code with syntax highlighting
-        const formattedCode = formatCode(data.code);
-        updateMessage(aiMessageId, formattedCode);
-      } catch (error) {
-        updateMessage(aiMessageId, "Error: " + error.message);
+        // Scroll to bottom again after content is loaded
+        chatContainer.scrollTop = chatContainer.scrollHeight;
       }
-      
-      // Scroll to bottom again after content is loaded
-      chatContainer.scrollTop = chatContainer.scrollHeight;
     }
     
     function addMessage(content, sender, messageId = null) {
@@ -306,6 +509,8 @@
       bubble.innerHTML = content;
       messageDiv.appendChild(bubble);
       chatContainer.appendChild(messageDiv);
+      
+      return messageId || '';
     }
     
     function updateMessage(messageId, content) {
@@ -317,8 +522,9 @@
     
     function formatCode(code) {
       // Simple code formatting - in a real app, you might use a syntax highlighter library
+      const escapedCode = escapeHtml(code).replace(/'/g, "\\'");
       return `<pre class="theme-transition p-3 rounded-md overflow-x-auto text-sm" style="background: var(--code-bg); color: var(--code-text);">${escapeHtml(code)}</pre>
-              <button onclick="copyToClipboard(this)" class="theme-transition mt-2 text-sm flex items-center" style="color: var(--button-bg);">
+              <button onclick="copyHighlightedCode(this, '${escapedCode}')" class="theme-transition mt-2 text-sm flex items-center px-2 py-1 rounded" style="background: var(--button-bg); color: var(--button-text);">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3" />
                 </svg>
@@ -335,9 +541,58 @@
         .replace(/'/g, "&#039;");
     }
     
-    function copyToClipboard(button) {
-      const preElement = button.previousElementSibling;
-      const code = preElement.textContent;
+    // This function is now defined in advanced.js
+    // Keeping a reference here for backward compatibility
+    function copyToClipboard(button, textToCopy) {
+      // If advanced.js is loaded, use that implementation
+      if (typeof window.copyToClipboard === 'function') {
+        return window.copyToClipboard(button, textToCopy);
+      }
+      
+      // Fallback implementation
+      let code;
+      
+      if (textToCopy) {
+        // If specific text is provided, use it
+        code = textToCopy;
+      } else {
+        // Otherwise try to find the code in the previous element
+        try {
+          // Try different ways to find the code to copy
+          const container = button.closest('.highlight-container');
+          if (container) {
+            // For highlighted code in the container
+            const codeElement = container.querySelector('pre') || container.querySelector('.source');
+            if (codeElement) {
+              code = codeElement.textContent;
+            }
+          } else if (button.previousElementSibling && button.previousElementSibling.tagName === 'PRE') {
+            // For simple pre elements
+            code = button.previousElementSibling.textContent;
+          } else if (button.previousElementSibling && button.previousElementSibling.tagName === 'INPUT') {
+            // For share URL input fields
+            code = button.previousElementSibling.value;
+          } else {
+            // Try to find code in parent elements
+            const parent = button.parentElement;
+            if (parent) {
+              const preElement = parent.querySelector('pre') || parent.previousElementSibling;
+              if (preElement) {
+                code = preElement.textContent;
+              }
+            }
+          }
+        } catch (e) {
+          console.error('Error finding code to copy:', e);
+          alert('Could not find code to copy');
+          return;
+        }
+      }
+      
+      if (!code) {
+        alert('No content found to copy');
+        return;
+      }
       
       navigator.clipboard.writeText(code)
         .then(() => {
@@ -355,6 +610,7 @@
         })
         .catch(err => {
           console.error('Failed to copy: ', err);
+          alert('Failed to copy text. Please try again.');
         });
     }
     
@@ -363,6 +619,115 @@
     setInterval(() => {
       sendButton.classList.toggle('shadow-glow');
     }, 2000);
+    
+    // Direct function to copy share URL
+    function copyShareUrl(url) {
+      console.log("Copying share URL:", url);
+      
+      // Get the button that was clicked
+      const clickedButton = event.currentTarget;
+      
+      // Create a temporary input element
+      const tempInput = document.createElement('input');
+      tempInput.value = url;
+      document.body.appendChild(tempInput);
+      
+      // Select the text
+      tempInput.select();
+      tempInput.setSelectionRange(0, 99999); // For mobile devices
+      
+      // Copy the text
+      try {
+        const successful = document.execCommand('copy');
+        if (successful) {
+          console.log("Copy successful");
+          
+          // Store original content
+          const originalContent = clickedButton.innerHTML;
+          
+          // Change button text
+          clickedButton.innerHTML = `
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1 inline" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+            </svg>
+            Copied!`;
+          
+          // Make sure the button is visible
+          clickedButton.style.backgroundColor = 'var(--button-bg)';
+          clickedButton.style.color = 'var(--button-text)';
+          
+          // Reset after 2 seconds
+          setTimeout(function() {
+            clickedButton.innerHTML = originalContent;
+          }, 2000);
+        } else {
+          console.error("Copy failed");
+          alert("Copy failed. Please try again.");
+        }
+      } catch (err) {
+        console.error("Copy error:", err);
+        alert("Copy failed. Please try again.");
+      }
+      
+      // Remove the temporary element
+      document.body.removeChild(tempInput);
+    }
+    
+    // Function to copy highlighted code
+    function copyHighlightedCode(button, code) {
+      console.log("Copying highlighted code");
+      
+      // Get the button that was clicked
+      const clickedButton = event.currentTarget;
+      
+      // Create a temporary textarea element
+      const textarea = document.createElement('textarea');
+      textarea.value = code;
+      textarea.setAttribute('readonly', '');
+      textarea.style.position = 'absolute';
+      textarea.style.left = '-9999px';
+      document.body.appendChild(textarea);
+      
+      // Select the text and copy it
+      textarea.select();
+      
+      try {
+        // Try to copy
+        const successful = document.execCommand('copy');
+        
+        if (successful) {
+          console.log("Copy successful");
+          
+          // Store original content
+          const originalContent = clickedButton.innerHTML;
+          
+          // Change button text
+          clickedButton.innerHTML = `
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+            </svg>
+            Copied!`;
+          
+          // Make sure the button is visible
+          clickedButton.style.backgroundColor = 'var(--button-bg)';
+          clickedButton.style.color = 'var(--button-text)';
+          
+          // Reset after 2 seconds
+          setTimeout(function() {
+            clickedButton.innerHTML = originalContent;
+          }, 2000);
+        } else {
+          console.error("Copy failed");
+          alert("Copy failed. Please try again.");
+        }
+      } catch (err) {
+        console.error("Copy error:", err);
+        alert("Copy failed. Please try again.");
+      }
+      
+      // Clean up
+      document.body.removeChild(textarea);
+    }
     
     // Dark mode toggle functionality
     const themeToggle = document.getElementById('theme-toggle');
@@ -479,8 +844,8 @@
           <div class="theme-transition bg-white dark:bg-gray-800 rounded-lg shadow-xl max-w-4xl w-full max-h-[80vh] overflow-y-auto p-6" style="background: var(--ai-bubble-bg); color: var(--ai-bubble-text);">
             <div class="flex justify-between items-center mb-4">
               <h3 class="text-xl font-bold">Prompt Template: ${promptTemplate.replace('.txt', '')}</h3>
-              <button id="close-modal" class="text-gray-500 hover:text-gray-700 dark:text-gray-300 dark:hover:text-gray-100">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <button id="close-prompt-modal" class="text-gray-500 hover:text-gray-700 dark:text-gray-300 dark:hover:text-gray-100" aria-label="Close prompt template modal">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
                 </svg>
               </button>
@@ -492,7 +857,7 @@
         document.body.appendChild(modal);
         
         // Close modal when clicking the close button or outside the modal
-        document.getElementById('close-modal').addEventListener('click', () => {
+        document.getElementById('close-prompt-modal').addEventListener('click', () => {
           document.body.removeChild(modal);
         });
         
@@ -505,6 +870,146 @@
         console.error('Error viewing prompt:', error);
         alert('Error viewing prompt: ' + error.message);
       }
+    });
+    
+    // Highlight Code button functionality
+    document.getElementById('highlight-code-btn').addEventListener('click', async () => {
+      const code = document.getElementById('code-input').value;
+      const language = document.getElementById('language').value;
+      
+      if (!code.trim()) {
+        alert('Please enter some code to highlight');
+        return;
+      }
+      
+      // Add user message
+      addMessage(code, 'user');
+      
+      // Add AI message with loading indicator
+      const aiMessageId = addMessage('<div class="spinner"></div>', 'ai', 'ai-message-' + Date.now());
+      
+      try {
+        // Prepare form data
+        const formData = new FormData();
+        formData.append('code', code);
+        formData.append('language', language);
+        
+        // Send request to highlight code
+        const response = await fetch('/highlight_code', {
+          method: 'POST',
+          body: formData
+        });
+        
+        if (!response.ok) {
+          throw new Error('Failed to highlight code');
+        }
+        
+        const data = await response.json();
+        
+        // Create a unique ID for the style element
+        const styleId = 'highlight-style-' + Date.now();
+        
+        // Add the CSS to the document
+        const style = document.createElement('style');
+        style.id = styleId;
+        style.textContent = data.css;
+        document.head.appendChild(style);
+        
+        // Update the AI message with the highlighted code
+        const highlightedContent = `
+          <div class="highlight-container" data-original-code="${escapeHtml(code)}">
+            <h3 class="font-bold mb-2">Syntax Highlighted Code</h3>
+            <div class="overflow-x-auto theme-transition" style="background: var(--code-bg); border-radius: 0.375rem;">
+              ${data.html || '<pre>' + escapeHtml(code) + '</pre>'}
+            </div>
+            <div class="mt-4">
+              <button onclick="copyHighlightedCode(this, '${escapeHtml(code.replace(/'/g, "\\'"))}')" class="theme-transition inline-flex items-center px-3 py-1 rounded" style="background: var(--button-bg); color: var(--button-text);" data-copy-type="highlighted">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3" />
+                </svg>
+                Copy Code
+              </button>
+            </div>
+          </div>
+        `;
+        
+        updateMessage(aiMessageId, highlightedContent);
+      } catch (error) {
+        updateMessage(aiMessageId, "Error: Failed to highlight code. Please try again.");
+      }
+      
+      // Scroll to bottom
+      document.getElementById('chat-container').scrollTop = document.getElementById('chat-container').scrollHeight;
+    });
+    
+    // Share Code button functionality
+    document.getElementById('share-code-btn').addEventListener('click', async () => {
+      const code = document.getElementById('code-input').value;
+      const language = document.getElementById('language').value;
+      
+      if (!code.trim()) {
+        alert('Please enter some code to share');
+        return;
+      }
+      
+      // Add user message
+      addMessage(code, 'user');
+      
+      // Add AI message with loading indicator
+      const aiMessageId = addMessage('<div class="spinner"></div>', 'ai', 'ai-message-' + Date.now());
+      
+      try {
+        // Prepare form data
+        const formData = new FormData();
+        formData.append('code', code);
+        formData.append('language', language);
+        
+        // Send request to share code
+        const response = await fetch('/share_code', {
+          method: 'POST',
+          body: formData
+        });
+        
+        if (!response.ok) {
+          throw new Error('Failed to share code');
+        }
+        
+        const data = await response.json();
+        
+        if (data.share_id) {
+          const shareUrl = window.location.origin + "/shared/" + data.share_id;
+          
+          // Update the AI message with the share link
+          const shareContent = `
+            <div class="space-y-4">
+              <div class="theme-transition p-4 rounded-md" style="background: var(--share-success-bg); color: var(--share-success-text);">
+                Code shared successfully!
+              </div>
+              <div class="theme-transition p-4 border rounded-md" style="background: var(--ai-bubble-bg); color: var(--ai-bubble-text); border-color: var(--ai-bubble-border);">
+                <p class="mb-2 font-bold">Share URL:</p>
+                <div class="flex share-url-container">
+                  <input type="text" value="${shareUrl}" id="share-url-${data.share_id}" readonly class="theme-transition flex-1 p-2 border rounded-l-md" style="background: var(--share-url-bg); color: var(--share-url-text); border-color: var(--share-url-border);" />
+                  <button onclick="copyShareUrl('${shareUrl}')" class="theme-transition px-4 py-2 rounded-r-md" style="background: var(--button-bg); color: var(--button-text); border: none;" data-share-url="${shareUrl}">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1 inline" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3" />
+                    </svg>
+                    Copy
+                  </button>
+                </div>
+              </div>
+            </div>
+          `;
+          
+          updateMessage(aiMessageId, shareContent);
+        } else {
+          updateMessage(aiMessageId, "Error: Failed to share code. Please try again.");
+        }
+      } catch (error) {
+        updateMessage(aiMessageId, "Error: Failed to share code. Please try again.");
+      }
+      
+      // Scroll to bottom
+      document.getElementById('chat-container').scrollTop = document.getElementById('chat-container').scrollHeight;
     });
   </script>
 </body>
