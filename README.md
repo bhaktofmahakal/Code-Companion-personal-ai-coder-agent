@@ -1,5 +1,17 @@
+
+<p align="center">
+  <img src="https://img.shields.io/badge/Python-3.8+-yellow?logo=python&logoColor=white" alt="Python">
+  <img src="https://img.shields.io/badge/FastAPI-Backend-009688?logo=fastapi&logoColor=white" alt="FastAPI">
+  <img src="https://img.shields.io/badge/TailwindCSS-Frontend-blue?logo=tailwindcss&logoColor=white" alt="TailwindCSS">
+  <img src="https://img.shields.io/badge/Ollama-LLM-green?logo=openai" alt="Ollama">
+  <img src="https://img.shields.io/badge/License-MIT-blue.svg" alt="MIT License">
+  <img src="https://img.shields.io/badge/Status-Active-brightgreen" alt="Status">
+</p>
+
 <h1 align="center">🧠 Code Companion</h1>
+
 <p align="center"><strong>Personal AI Coder Agent</strong></p>
+
 <p align="center">
 
 A powerful autonomous AI framework using <code>Ollama</code> and <code>CodeLlama:7B-Instruct</code><br/>
