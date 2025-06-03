@@ -181,14 +181,15 @@ Fork this repository
 📜 License
 
     Licensed under the MIT License. See LICENSE for details.
+ Acknowledgments
+ 
+💡 Ollama – LLM orchestration engine
 
-🙏 Acknowledgments
+⚡ FastAPI – Async Python backend
 
-      💡 Ollama – Local LLM orchestration      
-      ⚡ FastAPI – Async Python API
-      🎨 HTML + TailwindCSS – Frontend stack
-   
-      - Inspired by Devin AI's capabilities
-      - Uses Ollama for local LLM inference
-      - Built with FastAPI for high-performance API endpoints
+🎨 TailwindCSS – Modern UI styling
+
+💻 Inspired by: Devin AI, Ghostwriter, Cursor AI
+
+
 
