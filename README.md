@@ -1,75 +1,80 @@
-# 🧠 Code Companion
+<h1 align="center">🧠 Code Companion</h1>
+<p align="center"><strong>Personal AI Coder Agent</strong></p>
+<p align="center">
 
-**Personal AI Coder Agent**
-
-A powerful autonomous AI agent framework built with Ollama and CodeLlama:7B-Instruct, designed to plan, code, and improve software applications—starting with a responsive Blog Platform using FastAPI, HTML, and TailwindCSS.
+A powerful autonomous AI framework using <code>Ollama</code> and <code>CodeLlama:7B-Instruct</code><br/>
+Built to plan, code, and improve real-world applications — starting with a Blog Platform (FastAPI + HTML + TailwindCSS).
+</p>
 
 ---
 
-## 🚀 Give your coding superpowers an AI upgrade – fully local, private, and open-source!
+<h3 align="center">🚀 Supercharge your coding with fully local, private, and open-source AI capabilities</h3>
 
 ---
 
 ## 🎯 Key Features
 
-* 🤖 **Autonomous Task Planning & Execution** — Just describe your goal, and let the agent do the work.
-* 💡 **AI Code Generation & Review** — Generate backend, frontend, and logic in seconds.
-* 🧠 **Self-Improving Critic & Reflection Loop** — Smart feedback cycles to optimize and revise.
-* 🌐 **Modern Web UI** — Built with HTML + TailwindCSS to show real-time status and task flow.
-* 📦 **Downloadable Code Files** — Easily view, edit, or run generated projects.
-* 🔍 **Live Code Validation** — Backend checks and feedback via API endpoints.
+- **Autonomous Task Planning & Execution** — Just describe your goal, and the agent builds it.
+- **AI Code Generation & Review** — Frontend, backend, logic... generated in seconds.
+- **Self-Improving Critic & Feedback Loop** — Learns and optimizes your solution over time.
+- **Real-time Web UI** — Built with HTML + TailwindCSS, shows live task status.
+- **Downloadable Code Files** — Instantly grab your generated project files.
+- **Live Code Validation** — Backend performs static checks via API endpoints.
 
 ---
 
-## 📽️ Demo Video & Screenshots
+## 📽️ Demo Preview
 
-<p align="center"> <a href="https://youtu.be/pDlP85JFjF4"> <img src="images\project.jpg" alt="Watch Demo" width="100%"/> </a> </p>
-
-
-*click on the image.*
-
----
-
-### ⚠️ **Performance Note (Important)**
-
-👉 **If the Code Companion AI is giving slow responses on your device, please note that the issue is not with the code.**  
-This usually happens when your device's RAM is under heavy load or your system lacks proper resources (RAM or GPU).
-
-- **Slow responses typically occur due to limited free RAM or background processes.**
-- **If the AI doesn't run at all, your system likely has less than 8GB of RAM or no suitable GPU.**
-- **✅ Recommended: Use a machine with at least 16GB RAM and a dedicated GPU (NVIDIA 6GB+ VRAM preferred) for optimal performance.**
+<p align="center">
+  <a href="https://youtu.be/pDlP85JFjF4">
+    <img src="images/project.jpg" alt="Watch Demo" width="90%"/>
+  </a><br/>
+  <em>Click the image to watch the full demo</em>
+</p>
 
 ---
 
-🚀 **If you're using a high-end system with 16GB+ RAM, SSD storage, and a powerful GPU, you can switch to advanced local models such as:**
+## ⚠️ Performance Note
+
+> If Code Companion responds slowly, it’s likely due to low system resources — not the codebase.
+
+**Recommendations:**
+- ✅ 16GB RAM minimum
+- ✅ SSD storage
+- ✅ Dedicated GPU (6GB+ VRAM preferred)
+
+> Systems with less than 8GB RAM or no GPU may face slow or failed AI inference.
+
+---
+
+### 💡 Pro Tip:
+If your system is high-end, unlock advanced performance using:
 
 - `CodeLlama-13B-Instruct`
 - `CodeLlama-34B-Instruct`
-- `Deepseek-Coder-33B-Instruct`
-- `WizardCoder-33B`
-- *and other top-tier open-source coding models*
+- `Deepseek-Coder-33B`
+- `WizardCoder-33B-Instruct`
+
+> 🧠 These offer results close to GPT-4.5 / Devin AI / Cursor AI — completely offline.
 
 ---
 
-✅ **When using these advanced models on a capable system, this Code Companion project can perform at a level comparable to GPT-4.5 AI coding agents like Replit Ghostwriter, Devin AI, or Cursor AI.**
-
-
 ## 🛠️ Prerequisites
 
-* Python 3.10.12
-* Node.js 20.18.0
-* Ollama installed with `codellama:7b-instruct` model
-* Git
+- Python `3.10.12`
+- Node.js `20.18.0`
+- Ollama with `codellama:7b-instruct`
+- Git
 
 ---
 
 ## ⚙️ Setup Instructions
 
-1. Clone the Repository
+### 1. Clone the Repo
 
-   ```bash
-   git clone https://github.com/bhaktofmahakal/Code-Companion-personal-ai-coder-agent.git
-   cd Code-Companion-personal-ai-coder-agent
+      git clone https://github.com/bhaktofmahakal/Code-Companion-personal-ai-coder-agent.git
+      cd Code-Companion-personal-ai-coder-agent
+
 Backend Setup (FastAPI)
 
       python -m venv venv
