@@ -9,7 +9,6 @@
 </p>
 
 <h1 align="center">🧠 Code Companion</h1>
-
 <p align="center"><strong>Personal AI Coder Agent</strong></p>
 
 <p align="center">
@@ -209,11 +208,14 @@ Fork this repository
 
 ⚡ Acknowledgments
  
-💡 Ollama – LLM orchestration engine
+<p align="center">
+ 
+  <img src="https://img.shields.io/badge/FastAPI-Backend-009688?logo=fastapi&logoColor=white" alt="FastAPI">
+  <img src="https://img.shields.io/badge/TailwindCSS-Frontend-blue?logo=tailwindcss&logoColor=white" alt="TailwindCSS">
+  <img src="https://img.shields.io/badge/Ollama-LLM-green?logo=openai" alt="Ollama">
 
-⚡ FastAPI – Async Python backend
+</p>
 
-🎨 TailwindCSS – Modern UI styling
 
 💻 Inspired by: Devin AI, Ghostwriter, Cursor AI
 
