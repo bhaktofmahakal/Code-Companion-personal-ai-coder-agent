@@ -82,6 +82,12 @@ If your system is high-end, unlock advanced performance using:
 
 ## ⚙️ Setup Instructions
 
+<details>
+<summary>click to view</summary>
+
+---
+
+
 ### 1. Clone the Repo
 
       git clone https://github.com/bhaktofmahakal/Code-Companion-personal-ai-coder-agent.git
@@ -114,6 +120,10 @@ Start Backend API
       Review and improve the solution
       
       Provide downloadable output
+      
+</details>
+
+---
 
 🧠 AI Code Companion – Main Capabilities
 
@@ -134,6 +144,8 @@ Start Backend API
    
 3. Select a mode (generate, debug, explain, etc.) and enter your request.
 
+---
+
 ## API Endpoints
 
 The application provides several API endpoints:
@@ -148,6 +160,11 @@ The application provides several API endpoints:
 - `/save_prompt_template`: Save custom prompt templates
 - `/highlight_code`: Format code with syntax highlighting
 
+
+---
+
+
+
 ## Project Structure
 
 - `app.py`: Main FastAPI application
@@ -157,12 +174,16 @@ The application provides several API endpoints:
 - `shared_code/`: Shared code snippets
 - `generated/`: Generated project files
 
+---
+
 ## Technologies Used
 
 - **Backend**: FastAPI, Python
 - **Frontend**: HTML, CSS, JavaScript, TailwindCSS
 - **AI**: Ollama, CodeLlama
 - **Code Analysis**: Custom Python utilities
+
+---
 
 ## Contributing
 
@@ -177,11 +198,16 @@ Fork this repository
       Push to branch: git push origin my-feature
       
       Create a Pull Request
+      
+---
 
 📜 License
 
     Licensed under the MIT License. See LICENSE for details.
- Acknowledgments
+    
+---
+
+⚡ Acknowledgments
  
 💡 Ollama – LLM orchestration engine
 
