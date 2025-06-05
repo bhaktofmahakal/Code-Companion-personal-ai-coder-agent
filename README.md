@@ -216,8 +216,7 @@ Fork this repository
 
 </p>
 
-
-💻 Inspired by: Devin AI, Ghostwriter, Cursor AI
+ <p align="center">💻 Inspired by: Devin AI, Ghostwriter, Cursor AI </p>
 
 
 
