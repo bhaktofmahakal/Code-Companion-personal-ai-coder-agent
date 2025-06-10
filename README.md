@@ -43,6 +43,7 @@ Built to plan, code, and improve real-world applications — starting with a Blo
   <em>Click the image to watch the full demo</em>
 </p>
 
+---
 
 div align="center">
   <img src="code ai/Screenshot 2025-06-10 124751.png" alt="Chat Interface" width="80%" style="border:1px solid #ccc; border-radius:10px;" />
@@ -52,7 +53,6 @@ div align="center">
   <img src="code ai/Screenshot 2025-06-10 124802.png" alt="Chat Interface" width="80%" style="border:1px solid #ccc; border-radius:10px;" />
   <p><em>Responsive, real-time AI Code Companion system for users.</em></p>
 </div>
-
 
 ---
 
